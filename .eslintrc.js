@@ -5,12 +5,12 @@ module.exports = {
         node: true,
         es2021: true,
     },
-    extends: ['google','prettier'],
+    extends: ['google','prettier','plugin:diff/diff'],
     parserOptions: {
         ecmaVersion: 12,
         sourceType: 'module',
     },
-    plugins: ['html', '@babel'],
+    plugins: ['html', '@babel','write-good-comments'],
     rules: {
         quotes: ['error', 'single'],
     },
