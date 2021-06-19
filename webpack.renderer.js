@@ -35,7 +35,12 @@ module.exports = {
                 exclude: /node_modules/,
                 use: [
                     { loader: MiniCssExtractPlugin.loader },
-                    { loader: 'css-loader' },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        },
+                    },
                     { loader: 'postcss-loader' },
                 ],
             },

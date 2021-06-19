@@ -73,7 +73,7 @@
                         ></a>
                     </template>
                 </div>
-                <!-- <div class="flex-1 flex flex-col"> -->
+                <!-- System Section Start -->
                 <div
                     class="container pl-14 py-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 0"
@@ -147,7 +147,8 @@
                         </div>
                     </div>
                 </div>
-                <!-- Drivers Section -->
+                <!-- System Section End -->
+                <!-- Drivers Section Start -->
                 <div
                     x-show="$store.listOfTabs.activeFirstTabIndex == 2"
                     class="container pl-14 py-4"
@@ -217,6 +218,8 @@
                         </div>
                     </div>
                 </div>
+                <!-- Drivers Section End -->
+                <!-- Kexts Section Start -->
                 <div
                     class="container pl-14 p-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 1"
@@ -454,6 +457,8 @@
                         </div>
                     </div>
                 </div>
+                <!-- Kexts Section End -->
+                <!-- SMBIOS Section Start -->
                 <div
                     class="container pl-14 p-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 3"
@@ -468,6 +473,8 @@
                         COMING SOON... <i class="fas fa-stopwatch"></i>
                     </p>
                 </div>
+                <!-- SMBIOS Section End -->
+                <!-- BootArgs Section Start -->
                 <div
                     class="container pl-14 p-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 4"
@@ -482,8 +489,8 @@
                         COMING SOON... <i class="fas fa-stopwatch"></i>
                     </p>
                 </div>
+                <!-- BootArgs Section End -->
             </div>
-            <!-- </div> -->
         </div>
         <footer class="text-gray-400 bg-base-300">
             <div
