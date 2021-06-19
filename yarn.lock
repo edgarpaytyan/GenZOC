@@ -8687,6 +8687,7 @@ fsevents@~2.3.1:
     mini-css-extract-plugin: ^1.6.0
     node-loader: ^2.0.0
     optimize-css-assets-webpack-plugin: ^6.0.0
+    overlayscrollbars: ^1.13.1
     plist: ^3.0.2
     postcss: ^8.3.5
     postcss-import: ^14.0.2
@@ -13459,6 +13460,13 @@ fsevents@~2.3.1:
     os-homedir: ^1.0.0
     os-tmpdir: ^1.0.0
   checksum: 1c7462808c5ff0c2816b11f2f46265a98c395586058f98d73a6deac82955744484b277baedceeb962c419f3b75d0831a77ce7cf38b9e4f20729943ba79d72b08
+  languageName: node
+  linkType: hard
+
+"overlayscrollbars@npm:^1.13.1":
+  version: 1.13.1
+  resolution: "overlayscrollbars@npm:1.13.1"
+  checksum: aabe51b092674a0d66b47f0875eea8c628c943adaedc5e861413f133c435c07f972ff5400641f5c4db031d305e7e00514ec71bd3da67b1f3697f797ff95364b9
   languageName: node
   linkType: hard
 

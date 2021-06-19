@@ -1,4 +1,4 @@
-Alpine.store('listOfCPUs', {
+const listOfCPUs = {
     intel: [
         'Penryn',
         'Clarkdale',
@@ -21,8 +21,8 @@ Alpine.store('listOfCPUs', {
         'Bulldozer(15h) and Jaguar(16h)',
         'Ryzen and Threadripper(17h and 19h)',
     ],
-});
-Alpine.store('listOfKexts', {
+};
+const listOfKexts = {
     essential: ['Lilu', 'VirtualSMC'],
     virtualSMCPlugins: [
         'SMCProcessor',
@@ -61,8 +61,8 @@ Alpine.store('listOfKexts', {
         'NVMeFix',
         'SATA-Unsupported',
     ],
-});
-Alpine.store('listOfDrivers', {
+};
+const listOfDrivers = {
     uefi: ['HfsPlus.efi', 'OpenRuntime.efi'],
     legacy: [
         'OpenUsbKbDxe.efi',
@@ -70,8 +70,8 @@ Alpine.store('listOfDrivers', {
         'OpenPartitionDxe',
         'HfsPlus32',
     ],
-});
-Alpine.store('listOfTabs', {
+};
+const listOfTabs = {
     first: [
         'System Type',
         'Kexts',
@@ -94,4 +94,37 @@ Alpine.store('listOfTabs', {
     activeKextsTabIndex: 0,
     drivers: ['UEFI', 'Legacy(BIOS)'],
     activeDriversTabIndex: 0,
-});
+};
+
+// const listOfThemes = {
+//     dark: [
+//         { id: 'dark', name: '🌚  Dark' },
+//         { id: 'synthwave', name: '🌃  Synthwave' },
+//         { id: 'halloween', name: '🎃  Halloween' },
+//         { id: 'forest', name: '🌲  Forest' },
+//         { id: 'aqua', name: '🐟  Aqua' },
+//         { id: 'black', name: '🏴  Black' },
+//         { id: 'luxury', name: '💎  Luxury' },
+//         { id: 'dracula', name: '🧛‍♂️  Dracula' },
+//     ],
+//     light: [
+//         { id: 'light', name: '🌝  Light' },
+//         { id: 'cupcake', name: '🧁  Cupcake' },
+//         { id: 'bumblebee', name: '🐝  Bumblebee' },
+//         { id: 'emerald', name: '✳️  Emerald' },
+//         { id: 'corporate', name: '🏢  Corporate' },
+//         { id: 'retro', name: '👴  Retro' },
+//         { id: 'cyberpunk', name: '🤖  Cyberpunk' },
+//         { id: 'valentine', name: '🌸  Valentine' },
+//         { id: 'garden', name: '🌷  Garden' },
+//         { id: 'lofi', name: '👓  Lofi' },
+//         { id: 'pastel', name: '🖍  Pastel' },
+//         { id: 'fantasy', name: '🧚‍♀️  Fantasy' },
+//         { id: 'wireframe', name: '📝  Wireframe' },
+//     ],
+// };
+// Add data to Alpine
+Alpine.store('listOfCPUs', listOfCPUs);
+Alpine.store('listOfKexts', listOfKexts);
+Alpine.store('listOfDrivers', listOfDrivers);
+Alpine.store('listOfTabs', listOfTabs);

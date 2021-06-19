@@ -1,6 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html id="html" class="custom-scroll">
     <head lang="en-US">
+        <!-- <script
+            src="https://raw.githubusercontent.com/akzhy/scrollbot/master/src/scrollbot.min.js"
+            type="text/javascript"
+        ></script> -->
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,7 +16,7 @@
             src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
         ></script> -->
     </head>
-    <body>
+    <body id="body">
         <div x-data class="bg-base-200 drawer text-base-content w-full">
             <!-- this checkbox controls if drawer is open -->
 
@@ -55,6 +59,7 @@
                                 <option
                                     :value="theme.id"
                                     x-text="theme.name"
+                                    @click="$store.initScrollBar.destroy"
                                 ></option>
                             </template>
                         </select>
@@ -75,7 +80,7 @@
                 </div>
                 <!-- System Section Start -->
                 <div
-                    class="container pl-14 py-4"
+                    class="container mx-auto py-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 0"
                 >
                     <!-- Start CPU Info -->
@@ -151,7 +156,7 @@
                 <!-- Drivers Section Start -->
                 <div
                     x-show="$store.listOfTabs.activeFirstTabIndex == 2"
-                    class="container pl-14 py-4"
+                    class="container mx-auto py-4"
                 >
                     <div class="tabs justify-center mb-4 tabs-boxed">
                         <template
@@ -221,9 +226,8 @@
                 <!-- Drivers Section End -->
                 <!-- Kexts Section Start -->
                 <div
-                    class="container pl-14 p-4"
+                    class="container mx-auto py-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 1"
-                    class="container pl-6 py-8"
                 >
                     <div class="tabs justify-center mb-4 tabs-boxed">
                         <template
@@ -460,32 +464,20 @@
                 <!-- Kexts Section End -->
                 <!-- SMBIOS Section Start -->
                 <div
-                    class="container pl-14 p-4"
+                    class="container mx-auto py-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 3"
-                    class="
-                        container
-                        pl-6
-                        py-8
-                        justify-center justify-items-center
-                    "
                 >
-                    <p class="text-gray-400">
+                    <p class="text-gray-400 mx-auto">
                         COMING SOON... <i class="fas fa-stopwatch"></i>
                     </p>
                 </div>
                 <!-- SMBIOS Section End -->
                 <!-- BootArgs Section Start -->
                 <div
-                    class="container pl-14 p-4"
+                    class="container mx-auto py-4"
                     x-show="$store.listOfTabs.activeFirstTabIndex == 4"
-                    class="
-                        container
-                        pl-6
-                        py-8
-                        justify-items-center justify-center
-                    "
                 >
-                    <p class="text-gray-400">
+                    <p class="text-gray-400 mx-auto">
                         COMING SOON... <i class="fas fa-stopwatch"></i>
                     </p>
                 </div>
@@ -527,7 +519,7 @@
                         text-center
                     "
                 >
-                    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+                    <div class="lg:w-1/4 md:w-1/2 w-full mx-auto px-4">
                         <button class="btn" id="genEFI">Generate EFI</button>
                         <h2
                             class="
