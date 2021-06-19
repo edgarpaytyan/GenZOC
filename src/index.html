@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en-US">
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>GenZOC</title>
+        <meta name="author" content="Cokaps016" />
+        <meta name="description" content="cokaps016 Personal Blog" />
+        <!-- <script
+            defer
+            src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+        ></script> -->
+    </head>
+    <body>
+        <div x-data class="bg-base-200 drawer text-base-content w-full">
+            <!-- this checkbox controls if drawer is open -->
+
+            <div class="flex flex-col drawer-content w-full">
+                <!-- drawer content -->
+                <div class="w-full navbar bg-base-300">
+                    <div class="flex-1 px-2 mx-2 font-bold">
+                        <!-- navbar title -->
+                        <span>GenZOC</span>
+                    </div>
+                    <div class="flex-none">
+                        <select
+                            class="select"
+                            data-choose-theme
+                            x-data="{themes:[
+                                { id: 'light', name: '🌝  Light' },
+                                { id: 'dark', name: '🌚  Dark' },
+                                { id: 'cupcake', name: '🧁  Cupcake' },
+                                { id: 'bumblebee', name: '🐝  Bumblebee' },
+                                { id: 'emerald', name: '✳️  Emerald' },
+                                { id: 'corporate', name: '🏢  Corporate' },
+                                { id: 'synthwave', name: '🌃  Synthwave' },
+                                { id: 'retro', name: '👴  Retro' },
+                                { id: 'cyberpunk', name: '🤖  Cyberpunk' },
+                                { id: 'valentine', name: '🌸  Valentine' },
+                                { id: 'halloween', name: '🎃  Halloween' },
+                                { id: 'garden', name: '🌷  Garden' },
+                                { id: 'forest', name: '🌲  Forest' },
+                                { id: 'aqua', name: '🐟  Aqua' },
+                                { id: 'lofi', name: '👓  Lofi' },
+                                { id: 'pastel', name: '🖍  Pastel' },
+                                { id: 'fantasy', name: '🧚‍♀️  Fantasy' },
+                                { id: 'wireframe', name: '📝  Wireframe' },
+                                { id: 'black', name: '🏴  Black' },
+                                { id: 'luxury', name: '💎  Luxury' },
+                                { id: 'dracula', name: '🧛‍♂️  Dracula' }]
+                        }"
+                        >
+                            <template x-for="theme in themes" :key="theme.id">
+                                <option
+                                    :value="theme.id"
+                                    x-text="theme.name"
+                                ></option>
+                            </template>
+                        </select>
+                    </div>
+                </div>
+                <div class="tabs justify-center m-2 tabs-boxed">
+                    <template
+                        x-for="(tab, index) in $store.listOfTabs.first"
+                        :key="index"
+                    >
+                        <a
+                            class="tab"
+                            :class="{'tab-active': $store.listOfTabs.activeFirstTabIndex == index}"
+                            @click="$store.listOfTabs.activeFirstTabIndex = index"
+                            x-text="tab"
+                        ></a>
+                    </template>
+                </div>
+                <!-- <div class="flex-1 flex flex-col"> -->
+                <div
+                    class="container pl-14 py-4"
+                    x-show="$store.listOfTabs.activeFirstTabIndex == 0"
+                >
+                    <!-- Start CPU Info -->
+                    <div class="flex flex-col w-full">
+                        <div class="divider">Intel Consumers</div>
+                        <div>
+                            <template x-for="cpu in $store.listOfCPUs.intel">
+                                <div class="form-control">
+                                    <label class="cursor-pointer label">
+                                        <span
+                                            class="label-text"
+                                            x-text="cpu"
+                                        ></span>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                name="CPU"
+                                                class="radio radio-accent"
+                                                value="radio-accent"
+                                            />
+                                            <span class="radio-mark"></span>
+                                        </div>
+                                    </label></div
+                            ></template>
+                        </div>
+                        <div class="divider">Intel HEDT</div>
+                        <div>
+                            <template
+                                x-for="cpu in $store.listOfCPUs.intelHEDT"
+                            >
+                                <div class="form-control">
+                                    <label class="cursor-pointer label">
+                                        <span
+                                            class="label-text"
+                                            x-text="cpu"
+                                        ></span>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                name="CPU"
+                                                class="radio radio-accent"
+                                                value="radio-accent"
+                                            />
+                                            <span class="radio-mark"></span>
+                                        </div>
+                                    </label></div
+                            ></template>
+                        </div>
+                        <div class="divider">AMD</div>
+                        <div>
+                            <template x-for="cpu in $store.listOfCPUs.amd">
+                                <div class="form-control">
+                                    <label class="cursor-pointer label">
+                                        <span
+                                            class="label-text"
+                                            x-text="cpu"
+                                        ></span>
+                                        <div>
+                                            <input
+                                                type="radio"
+                                                name="CPU"
+                                                class="radio radio-accent"
+                                                value="radio-accent"
+                                            />
+                                            <span class="radio-mark"></span>
+                                        </div>
+                                    </label></div
+                            ></template>
+                        </div>
+                    </div>
+                </div>
+                <!-- Drivers Section -->
+                <div
+                    x-show="$store.listOfTabs.activeFirstTabIndex == 2"
+                    class="container pl-14 py-4"
+                >
+                    <div class="tabs justify-center mb-4 tabs-boxed">
+                        <template
+                            x-for="(tab, index) in $store.listOfTabs.drivers"
+                            :key="index"
+                        >
+                            <a
+                                class="tab"
+                                :class="{'tab-active': $store.listOfTabs.activeDriversTabIndex == index}"
+                                @click="$store.listOfTabs.activeDriversTabIndex = index"
+                                x-text="tab"
+                            ></a>
+                        </template>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeDriversTabIndex == 0"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="driver in $store.listOfDrivers.uefi"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="driver"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoDrivers"
+                                            id="driver"
+                                            type="checkbox"
+                                            checked="checked"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeDriversTabIndex == 1"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="driver in $store.listOfDrivers.legacy"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="driver"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoDrivers"
+                                            id="driver"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="container pl-14 p-4"
+                    x-show="$store.listOfTabs.activeFirstTabIndex == 1"
+                    class="container pl-6 py-8"
+                >
+                    <div class="tabs justify-center mb-4 tabs-boxed">
+                        <template
+                            x-for="(tab, index) in $store.listOfTabs.kexts"
+                            :key="index"
+                        >
+                            <a
+                                class="tab"
+                                :class="{'tab-active': $store.listOfTabs.activeKextsTabIndex == index}"
+                                @click="$store.listOfTabs.activeKextsTabIndex = index"
+                                x-text="tab"
+                            ></a>
+                        </template>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 0"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="kext in $store.listOfKexts.essential"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                            checked
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 1"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="kext in $store.listOfKexts.virtualSMCPlugins"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 2"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="kext in $store.listOfKexts.graphic"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 3"
+                    >
+                        <div class="form-control">
+                            <template x-for="kext in $store.listOfKexts.audio">
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 4"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="kext in $store.listOfKexts.ethernet"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 5"
+                    >
+                        <div class="form-control">
+                            <template x-for="kext in $store.listOfKexts.usb">
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 6"
+                    >
+                        <div class="form-control">
+                            <template
+                                x-for="kext in $store.listOfKexts.wireless"
+                            >
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 7"
+                    >
+                        <div class="form-control">
+                            <template x-for="kext in $store.listOfKexts.amd">
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                    <div
+                        class="flex flex-col"
+                        x-show="$store.listOfTabs.activeKextsTabIndex == 8"
+                    >
+                        <div class="form-control">
+                            <template x-for="kext in $store.listOfKexts.extra">
+                                <label class="cursor-pointer label">
+                                    <span
+                                        class="label-text"
+                                        x-text="kext"
+                                    ></span>
+                                    <div class="ml-2">
+                                        <input
+                                            name="infoKexts"
+                                            id="kext"
+                                            type="checkbox"
+                                            class="checkbox checkbox-accent"
+                                        />
+                                        <span class="checkbox-mark"></span>
+                                    </div> </label
+                            ></template>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="container pl-14 p-4"
+                    x-show="$store.listOfTabs.activeFirstTabIndex == 3"
+                    class="
+                        container
+                        pl-6
+                        py-8
+                        justify-center justify-items-center
+                    "
+                >
+                    <p class="text-gray-400">
+                        COMING SOON... <i class="fas fa-stopwatch"></i>
+                    </p>
+                </div>
+                <div
+                    class="container pl-14 p-4"
+                    x-show="$store.listOfTabs.activeFirstTabIndex == 4"
+                    class="
+                        container
+                        pl-6
+                        py-8
+                        justify-items-center justify-center
+                    "
+                >
+                    <p class="text-gray-400">
+                        COMING SOON... <i class="fas fa-stopwatch"></i>
+                    </p>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+        <footer class="text-gray-400 bg-base-300">
+            <div
+                class="
+                    container
+                    px-5
+                    py-5
+                    mx-auto
+                    flex
+                    md:items-center
+                    lg:items-start
+                    md:flex-row md:flex-nowrap
+                    flex-wrap flex-col
+                "
+            >
+                <div
+                    class="
+                        w-64
+                        flex-shrink-0
+                        md:mx-0
+                        mx-auto
+                        text-center
+                        md:text-left
+                    "
+                ></div>
+                <div
+                    class="
+                        flex-grow flex flex-wrap
+                        md:pl-20
+                        -mb-10
+                        md:mt-0
+                        mt-10
+                        md:text-left
+                        text-center
+                    "
+                >
+                    <div class="lg:w-1/4 md:w-1/2 w-full px-4">
+                        <button class="btn" id="genEFI">Generate EFI</button>
+                        <h2
+                            class="
+                                title-font
+                                font-extrabold
+                                text-lg
+                                tracking-widest
+                                mt-3
+                            "
+                        >
+                            Disclamer
+                        </h2>
+                        <nav class="list-none mb-10 justify-items-center">
+                            <p>The config.plist is based off the setting on</p>
+                            <a
+                                target="_blank"
+                                href="https://dortania.github.io/OpenCore-Install-Guide/"
+                                >OpenCore Install Guide</a
+                            ><br />
+                            <strong class="" style="color: red"
+                                >User Notice: This Application is not endorsed
+                                by both Acidanthera & Dortania team
+                            </strong>
+                            <p>
+                                Support and bug should be reported direct to the
+                                app's github repo
+                            </p>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-base-300">
+                <div
+                    class="
+                        container
+                        mx-auto
+                        py-4
+                        px-5
+                        flex flex-wrap flex-col
+                        sm:flex-row
+                    "
+                >
+                    <p class="text-gray-400 text-sm text-center sm:text-left">
+                        © 2021 cokaps016 —
+                        <a
+                            href="https://twitter.com/cokaps016"
+                            rel="noopener noreferrer"
+                            class="text-gray-500 ml-1"
+                            target="_blank"
+                            >@cokaps016</a
+                        >
+                    </p>
+                    <span
+                        class="
+                            inline-flex
+                            sm:ml-auto sm:mt-0
+                            mt-2
+                            justify-center
+                            sm:justify-start
+                        "
+                    >
+                        <a
+                            class="text-gray-400"
+                            href="https://www.facebook.com/profile.php?id=100068786173924"
+                        >
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a
+                            class="ml-3 text-gray-400"
+                            href="https://github.com/cokaps016"
+                        >
+                            <i class="fab fa-github-alt"></i>
+                        </a>
+                        <a
+                            class="ml-3 text-gray-400"
+                            href="https://gitlab.com/cokaps016"
+                        >
+                            <i class="fab fa-gitlab"></i>
+                        </a>
+                        <a
+                            class="ml-3 text-gray-400"
+                            href="https://bitbucket.org/cokaps016/"
+                        >
+                            <i class="fab fa-bitbucket"></i>
+                        </a>
+                    </span>
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>

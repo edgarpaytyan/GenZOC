@@ -1,0 +1,245 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v[0-9]+.[0-9]+.[0-9]+*
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: '0'
+          submodules: 'recursive'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install
+        run: yarn install
+      - name: Lint
+        run: yarn lint-ci
+  bundle:
+    needs: lint
+    runs-on: ${{ matrix.platform.host }}
+    strategy:
+      matrix:
+        platform:
+          - host: windows-latest
+            target: win32
+            arch: x64
+          - host: windows-latest
+            target: win32
+            arch: arm64
+          - host: macos-latest
+            target: darwin
+            arch: x64
+          - host: macos-latest
+            target: darwin
+            arch: arm64
+          - host: macos-latest
+            arch: x64
+            target: mas
+          - host: macos-latest
+            arch: arm64
+            target: mas
+          - host: ubuntu-latest
+            target: linux
+            arch: x64
+          - host: ubuntu-latest
+            target: linux
+            arch: arm64
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Bundle app
+        uses: electron-forge/bundle-action@main
+        with:
+          target-arch: ${{ matrix.platform.arch }}
+          target-platform: ${{ matrix.platform.target }}
+      # Archives the bundled app before uploading, to preserve permissions and symlinks.
+      # See: https://github.com/actions/upload-artifact#limitations
+      - name: Archive bundled app
+        run: tar cvf bundled-app-${{ matrix.platform.target }}-${{ matrix.platform.arch }}.tar out
+      - name: Save bundled app
+        uses: actions/upload-artifact@v1
+        with:
+          name: bundled-app-${{ matrix.platform.target }}-${{ matrix.platform.arch }}
+          path: bundled-app-${{ matrix.platform.target }}-${{ matrix.platform.arch }}.tar
+  installers:
+    needs: bundle
+    runs-on: ${{ matrix.distributable.os }}
+    strategy:
+      matrix:
+        distributable:
+          - os: windows-latest
+            platform: win32
+            arch: x64
+            maker: squirrel
+          - os: windows-latest
+            platform: win32
+            arch: arm64
+            maker: squirrel
+          - os: windows-latest
+            platform: win32
+            arch: x64
+            maker: zip
+          - os: windows-latest
+            platform: win32
+            arch: arm64
+            maker: zip
+          - os: macos-latest
+            platform: darwin
+            arch: x64
+            maker: dmg
+          - os: macos-latest
+            platform: darwin
+            arch: arm64
+            maker: dmg
+          # - os: macos-latest
+          #   platform: darwin
+          #   arch: x64
+          #   maker: pkg
+          # - os: macos-latest
+          #   platform: darwin
+          #   arch: arm64
+          #   maker: pkg
+          - os: macos-latest
+            platform: darwin
+            arch: x64
+            maker: zip
+          - os: macos-latest
+            platform: darwin
+            arch: arm64
+            maker: zip
+          - os: macos-latest
+            platform: mas
+            arch: x64
+            maker: dmg
+          - os: macos-latest
+            platform: mas
+            arch: arm64
+            maker: dmg
+          # - os: macos-latest
+          #   platform: mas
+          #   arch: x64
+          #   maker: pkg
+          # - os: macos-latest
+          #   platform: mas
+          #   arch: arm64
+          #   maker: pkg
+          - os: macos-latest
+            platform: mas
+            arch: x64
+            maker: zip
+          - os: macos-latest
+            platform: mas
+            arch: arm64
+            maker: zip
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            maker: zip
+          - os: ubuntu-latest
+            platform: linux
+            arch: arm64
+            maker: zip
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            maker: deb
+          - os: ubuntu-latest
+            platform: linux
+            arch: arm64
+            maker: deb
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            maker: flatpak
+          # - os: ubuntu-latest
+          #   platform: linux
+          #   arch: arm64
+          #   maker: flatpak
+          - os: ubuntu-latest
+            platform: linux
+            arch: x64
+            maker: rpm
+          - os: ubuntu-latest
+            platform: linux
+            arch: arm64
+            maker: rpm
+          - os: ubuntu-18.04
+            platform: linux
+            arch: x64
+            maker: snap
+          # - os: ubuntu-18.04
+          #   platform: linux
+          #   arch: arm64
+          #   maker: snap
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download bundled app artifact
+        uses: actions/download-artifact@v1
+        with:
+          name: bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}
+      - name: Unarchive bundled app
+        shell: bash
+        run: tar xvf bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}/bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}.tar
+    #   - name: Setup Platform dependencies
+    #     run: ci/platform_setup.sh
+    #     env:
+    #       MAKER: ${{ matrix.distributable.maker }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - uses: actions/cache@v1
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Generate distributables
+        uses: electron-forge/distributable-action@main
+        with:
+          target-maker: "@electron-forge/maker-${{ matrix.distributable.maker }}"
+          target-arch: ${{ matrix.distributable.arch }}
+          target-platform: ${{ matrix.distributable.platform }}
+        env:
+          DEBUG: "electron-installer-snap:snapcraft"
+      - name: Save distributable
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.distributable.maker }} (${{ matrix.distributable.platform }} ${{ matrix.distributable.arch }})
+          path: out/make

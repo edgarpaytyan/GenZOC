@@ -1,0 +1,24 @@
+{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "css.validate": true,
+    "less.validate": false,
+    "scss.validate": false,
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true
+    },
+    "git.ignoreLimitWarning": true,
+    "search.exclude": {
+        "**/.yarn": true,
+        "**/.pnp.*": true
+    },
+    "material-icon-theme.files.associations": {
+        "webpack.**.js": "Webpack"
+    },
+    "material-icon-theme.folders.associations": {
+        "main": "Javascript"
+    }
+    // "eslint.nodePath": ".yarn/sdks",
+    // "prettier.prettierPath": ".yarn/sdks/prettier/index.js",
+    // "stylelint.stylelintPath": ".yarn/sdks/stylelint/lib/index.js"
+}

@@ -1,0 +1,97 @@
+Alpine.store('listOfCPUs', {
+    intel: [
+        'Penryn',
+        'Clarkdale',
+        'Sandy Bridge',
+        'Ivy Bridge',
+        'Haswell',
+        'Skylake',
+        'Kaby Lake',
+        'Coffee Lake',
+        'Comet Lake',
+    ],
+    intelHEDT: [
+        'Nehalem and Westmere',
+        'Sandy and Ivy Bridge-E',
+        'Haswell-E',
+        'Broadwell-E',
+        'Skylake-X/W and Cascade Lake-X/W',
+    ],
+    amd: [
+        'Bulldozer(15h) and Jaguar(16h)',
+        'Ryzen and Threadripper(17h and 19h)',
+    ],
+});
+Alpine.store('listOfKexts', {
+    essential: ['Lilu', 'VirtualSMC'],
+    virtualSMCPlugins: [
+        'SMCProcessor',
+        'SMCSuperIO',
+        // 'SMCLightSensor',
+        // 'SMCBatteryManager',
+        'SMCDellSensors',
+    ],
+    graphic: ['WhateverGreen', 'AGPMInjector'],
+    audio: ['AppleALC'],
+    ethernet: [
+        'IntelMausi',
+        'SmallTreeIntel82576',
+        'AtherosE2200Ethernet',
+        'RealtekRTL8111',
+        'LucyRTL8125Ethernet',
+        'AppleIntele1000e',
+        'RealtekRTL8100',
+        'BCM5722D',
+    ],
+    usb: ['USBInjectAll', 'XHCI-unsupported'],
+    wireless: [
+        'AirportItlwm',
+        'IntelBluetoothFirmware',
+        'AirportBrcmFixup',
+        'BrcmBluetoothInjector',
+        'BrcmFirmwareData',
+        'BrcmPatchRAM3' /* for 10.15+ (must be paired with BrcmBluetoothInjector)*/,
+        'BrcmPatchRAM2' /* for 10.11-10.14*/,
+        'BrcmPatchRAM' /* for 10.8-10.10 */,
+    ],
+    amd: ['XLNCUSBFIX', 'VoodooHDA'],
+    extra: [
+        'AppleMCEReporterDisabler',
+        'CpuTscSync',
+        'NVMeFix',
+        'SATA-Unsupported',
+    ],
+});
+Alpine.store('listOfDrivers', {
+    uefi: ['HfsPlus.efi', 'OpenRuntime.efi'],
+    legacy: [
+        'OpenUsbKbDxe.efi',
+        'HfsPlusLegacy.efi',
+        'OpenPartitionDxe',
+        'HfsPlus32',
+    ],
+});
+Alpine.store('listOfTabs', {
+    first: [
+        'System Type',
+        'Kexts',
+        'Firmware Driver',
+        'SMBIOS',
+        'Additional BootArgs',
+    ],
+    activeFirstTabIndex: 0,
+    kexts: [
+        'Essential',
+        'VirtualSMC Plugins',
+        'Graphic',
+        'Audio',
+        'Ethernet',
+        'USB',
+        'WiFi and Bluetooth',
+        'AMD',
+        'Extra',
+    ],
+    activeKextsTabIndex: 0,
+    drivers: ['UEFI', 'Legacy(BIOS)'],
+    activeDriversTabIndex: 0,
+});
