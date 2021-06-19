@@ -3,12 +3,13 @@
 @import 'tailwindcss/utilities';
 
 /* @import './css/font.css'; */
-html {
-    scroll-behavior: smooth;
-    overflow-y: visible !important;
-}
 @media screen and (prefers-reduced-motion: reduce) {
-    html {
+    html,
+    body.os-host > .os-padding > .os-viewport {
         scroll-behavior: auto;
     }
+}
+html,
+body.os-host > .os-padding > .os-viewport {
+    scroll-behavior: smooth;
 }
