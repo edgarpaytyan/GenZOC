@@ -164,7 +164,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download bundled app artifact
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
           name: bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}
       - name: Unarchive bundled app
@@ -178,6 +178,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Install Snapcraft
+        if: ${{ matrix.distributable.maker == 'snap'}}
+        uses: samuelmeuli/action-snapcraft@v1
       - uses: c-hive/gha-yarn-cache@v2
       - name: Generate distributables
         uses: electron-forge/distributable-action@main
