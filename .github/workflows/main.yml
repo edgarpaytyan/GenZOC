@@ -105,14 +105,6 @@ jobs:
             platform: darwin
             arch: arm64
             maker: dmg
-          # - os: macos-latest
-          #   platform: darwin
-          #   arch: x64
-          #   maker: pkg
-          # - os: macos-latest
-          #   platform: darwin
-          #   arch: arm64
-          #   maker: pkg
           - os: macos-latest
             platform: darwin
             arch: x64
@@ -129,14 +121,6 @@ jobs:
             platform: mas
             arch: arm64
             maker: dmg
-          # - os: macos-latest
-          #   platform: mas
-          #   arch: x64
-          #   maker: pkg
-          # - os: macos-latest
-          #   platform: mas
-          #   arch: arm64
-          #   maker: pkg
           - os: macos-latest
             platform: mas
             arch: x64
@@ -161,14 +145,10 @@ jobs:
             platform: linux
             arch: arm64
             maker: deb
-          - os: ubuntu-latest
-            platform: linux
-            arch: x64
-            maker: flatpak
-          # - os: ubuntu-latest
-          #   platform: linux
-          #   arch: arm64
-          #   maker: flatpak
+        #   - os: ubuntu-latest
+        #     platform: linux
+        #     arch: x64
+        #     maker: flatpak
           - os: ubuntu-latest
             platform: linux
             arch: x64
@@ -181,10 +161,6 @@ jobs:
             platform: linux
             arch: x64
             maker: snap
-          # - os: ubuntu-18.04
-          #   platform: linux
-          #   arch: arm64
-          #   maker: snap
     steps:
       - uses: actions/checkout@v2
       - name: Download bundled app artifact
