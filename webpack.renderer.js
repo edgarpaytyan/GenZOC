@@ -2,7 +2,7 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const { extendDefaultPlugins } = require('svgo');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -64,13 +64,6 @@ module.exports = {
             new OptimizeCSSAssetsPlugin({
                 exclude: /(node_modules)/,
             }),
-            new HtmlWebpackPlugin({
-                minify: {
-                    removeAttributeQuotes: true,
-                    collapseWhitespace: true,
-                    removeComments: true,
-                },
-            }),
         ],
         splitChunks: {
             chunks: 'all',
@@ -89,6 +82,8 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'main.css',
         }),
+        // new HtmlWebpackPlugin({
+        // }),
         new FaviconsWebpackPlugin({
             logo: './src/logo.png',
             inject: true,
