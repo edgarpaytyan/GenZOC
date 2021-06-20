@@ -180,7 +180,7 @@ jobs:
           name: bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}
       - name: Unarchive bundled app
         shell: bash
-        run: tar xvf bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}/bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}.tar
+        run: tar xvf GenZOC/bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}/bundled-app-${{ matrix.distributable.platform }}-${{ matrix.distributable.arch }}.tar
       - name: Setup Platform dependencies
         run: ci/platform_setup.sh
         env:
