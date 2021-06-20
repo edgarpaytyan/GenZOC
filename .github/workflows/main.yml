@@ -6,6 +6,7 @@ on:
       - main
     tags:
       - v[0-9]+.[0-9]+.[0-9]+*
+  pull_request:
 jobs:
   lint:
     name: Lint
@@ -23,13 +24,19 @@ jobs:
       - name: Install
         run: yarn install
       - name: Run stylelint
+        if: ${{ github.event_name == 'pull_request'}}
         uses: reviewdog/action-stylelint@v1
       - name: Run Eslint
+        if: ${{ github.event_name == 'pull_request'}}
         uses: reviewdog/action-eslint@v1
       - name: Run Prettier
+        if: ${{ github.event_name == 'pull_request'}}
         run: yarn lintci-prettier
+      - name: Lint
+        if: ${{ github.event_name == 'push'}}
+        run: yarn lintci
   bundle:
-    needs: lint
+    # needs: lint
     runs-on: ${{ matrix.platform.host }}
     strategy:
       matrix:
