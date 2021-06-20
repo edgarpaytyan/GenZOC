@@ -14,6 +14,9 @@ module.exports = {
         },
         {
             name: '@electron-forge/maker-flatpak',
+            config: {
+                categories: 'Utility',
+            },
         },
         {
             name: '@electron-forge/maker-rpm',
