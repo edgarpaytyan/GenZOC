@@ -19,6 +19,7 @@
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fcokaps016%2FGenZOC%2Fbadge%3Fref%3Dmain&style=for-the-badge)](https://actions-badge.atrox.dev/cokaps016/GenZOC/goto?ref=main)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=for-the-badge)](https://github.com/prettier/prettier)
 [![PicGo Convention](https://img.shields.io/badge/picgo-convention-blue.svg?style=for-the-badge)](https://github.com/PicGo/bump-version)
 

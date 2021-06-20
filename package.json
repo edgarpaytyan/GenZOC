@@ -37,7 +37,7 @@
         "fixlint-stylelint": "echo Fixing Lint Issues With Stylelint... && stylelint src/css/**/*.css --fix && echo Fix generated successfully. || (echo Fix failed! && exit 1)",
         "fixlint-eslint": "echo Fixing Lint Issues With Eslint... && yarn eslint --ext .js --fix --quiet && echo Fix generated successfully. || (echo Fix failed! && exit 1)",
         "fixlint-prettier": "echo Fixing Lint Issues With Prettier... && yarn prettier -w . && echo Fix generated successfully. || (echo Fix failed! && exit 1)",
-        "lint-ci": "concurrently \"yarn:lintci-*\" && echo Please apply the following diff using git apply && git diff",
+        "lintci": "concurrently \"yarn:lintci-*\" && echo Please apply the following diff using git apply && git diff",
         "lint": "concurrently \"yarn:lint-*\"",
         "fixlint": "concurrently \"yarn:fixlint-*\" && echo Please apply the diff",
         "upd": "yarn set version latest",

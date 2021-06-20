@@ -22,8 +22,12 @@ jobs:
       - uses: c-hive/gha-yarn-cache@v2
       - name: Install
         run: yarn install
-      - name: Lint
-        run: yarn lint-ci
+      - name: Run stylelint
+        uses: reviewdog/action-stylelint@v1
+      - name: Run Eslint
+        uses: reviewdog/action-eslint@v1
+      - name: Run Prettier
+        run: yarn lintci-prettier
   bundle:
     needs: lint
     runs-on: ${{ matrix.platform.host }}
